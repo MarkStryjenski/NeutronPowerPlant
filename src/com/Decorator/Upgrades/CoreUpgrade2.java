@@ -7,4 +7,10 @@ public class CoreUpgrade2 extends FactoryDecorator {
     public CoreUpgrade2(EnergyFactory energyFactory) {
         super(energyFactory);
     }
+
+    @Override
+    public Double produceEnergy() {
+
+        return null;
+    }
 }

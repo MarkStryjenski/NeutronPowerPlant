@@ -7,4 +7,9 @@ public class EarlyWarningSystem extends FactoryDecorator {
     public EarlyWarningSystem(EnergyFactory energyFactory) {
         super(energyFactory);
     }
+
+    @Override
+    public void activateAlert(){
+
+    }
 }
