@@ -1,8 +1,14 @@
 package com.Alarm.state;
 
-public abstract class State{
+import com.Alarm.AlarmSystem;
 
-    public int checkState(){
-        return 0;
+public abstract class State {
+
+    public AlarmSystem alarmSystem;
+
+    public State(AlarmSystem alarmSystem) {
+        this.alarmSystem = alarmSystem;
     }
+
+    public abstract void onChangeState();
 }

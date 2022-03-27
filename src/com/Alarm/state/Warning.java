@@ -1,4 +1,15 @@
 package com.Alarm.state;
 
-public class Warning extends State{
+import com.Alarm.AlarmSystem;
+
+public class Warning extends State {
+
+    public Warning(AlarmSystem alarmSystem) {
+        super(alarmSystem);
+    }
+
+    @Override
+    public void onChangeState() {
+        alarmSystem.changeState(new Warning(alarmSystem));
+    }
 }
