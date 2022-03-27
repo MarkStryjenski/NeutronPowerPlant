@@ -5,7 +5,7 @@ import com.Decorator.FactoryDecorator;
 
 public class CoreUpgrade1 extends FactoryDecorator {
 
-    private EnergyFactory energyFactory;
+//    private EnergyFactory energyFactory;
     public CoreUpgrade1(EnergyFactory energyFactory) {
         super(energyFactory);
     }
@@ -15,4 +15,15 @@ public class CoreUpgrade1 extends FactoryDecorator {
         return 2.0;
     }
 
+//    public isCoreUpgrade1Implemented(){
+//
+//    }
+
+    public EnergyFactory getEnergyFactory() {
+        return energyFactory;
+    }
+
+    public void setEnergyFactory(EnergyFactory energyFactory) {
+        this.energyFactory = energyFactory;
+    }
 }

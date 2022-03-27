@@ -12,4 +12,6 @@ public class EarlyWarningSystem extends FactoryDecorator {
     public void activateAlert(){
 
     }
+
+
 }

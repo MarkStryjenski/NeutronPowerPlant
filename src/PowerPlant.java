@@ -1,3 +1,5 @@
+import com.Decorator.EnergyFactory;
+
 import java.util.ArrayList;
 
 public class PowerPlant {
@@ -6,11 +8,15 @@ public class PowerPlant {
     private Double totalEnergyUnits;
     private Double totalHeatUnits;
     private Double totalSteamUnits;
+    private EnergyFactory energyFactory;
 
-    public PowerPlant(ArrayList<Core> buildInCores, Double maxAllowedHeat) {
+    public PowerPlant(ArrayList<Core> buildInCores, Double maxAllowedHeat,EnergyFactory energyFactory) {
         this.buildInCores = buildInCores;
         this.maxAllowedHeat = maxAllowedHeat;
+        this.energyFactory=energyFactory;
     }
+
+
 
     public void explodePowerPlant(){
 
@@ -50,5 +56,13 @@ public class PowerPlant {
 
     public void setTotalSteamUnits(Double totalSteamUnits) {
         this.totalSteamUnits = totalSteamUnits;
+    }
+
+    public EnergyFactory getEnergyFactory() {
+        return energyFactory;
+    }
+
+    public void setEnergyFactory(EnergyFactory energyFactory) {
+        this.energyFactory = energyFactory;
     }
 }
