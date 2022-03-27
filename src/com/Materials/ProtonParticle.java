@@ -2,9 +2,10 @@ package com.Materials;
 
 public class ProtonParticle extends Material {
 
-    public ProtonParticle(Double energyPerUnit, Double heatPerUnit, Double steamPerUnit) {
-        this.energyPerUnit = energyPerUnit;
-        this.heatPerUnit = heatPerUnit;
-        this.steamPerUnit = heatPerUnit;
+    public ProtonParticle() {
+        this.energyPerUnit = 20.36;
+        this.heatPerUnit = 5.0;
+        this.steamPerUnit = 10.15;
     }
+
 }

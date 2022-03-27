@@ -4,14 +4,8 @@ public class IonParticle extends Material {
 
 
     public IonParticle(Double energyPerUnit, Double heatPerUnit, Double steamPerUnit) {
-        this.energyPerUnit = energyPerUnit;
-        this.heatPerUnit = heatPerUnit;
-        this.steamPerUnit = steamPerUnit;
-    }
-
-    public void test(){
-        Double testVar = 0.2;
-        System.out.println(testVar + this.energyPerUnit);
-
+        this.energyPerUnit = 13.6;
+        this.heatPerUnit = 0.4;
+        this.steamPerUnit = 4.85;
     }
 }
