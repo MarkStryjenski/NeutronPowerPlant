@@ -1,7 +1,7 @@
 package com.Decorator;
 
 public interface EnergyFactory {
-    void produceEnergy();
+    Double produceEnergy();
     void activateAlert();
     void storeEnergy();
     void sllStoredEnergy();
