@@ -8,6 +8,6 @@ public class Meltdown extends State {
 
     @Override
     public void onChangeState() {
-        systemState.changeState(new WorkingProperly(systemState));
+        systemState.changeState(new Meltdown(systemState));
     }
 }

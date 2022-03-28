@@ -10,6 +10,7 @@ public class SystemState {
     public State getState() {
         return state;
     }
+
     public void changeState(State state) {
         this.state = state;
     }

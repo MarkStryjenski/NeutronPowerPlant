@@ -1,7 +1,5 @@
 package com.Alarm.state;
 
-import com.Alarm.AlarmSystem;
-
 public abstract class State {
 
     public SystemState systemState;

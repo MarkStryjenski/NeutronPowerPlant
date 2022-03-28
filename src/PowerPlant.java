@@ -1,3 +1,5 @@
+import com.Alarm.AlarmSystem;
+import com.Alarm.state.*;
 import com.Decorator.EnergyFactory;
 
 import java.util.ArrayList;
@@ -9,14 +11,25 @@ public class PowerPlant {
     private Double totalHeatUnits;
     private Double totalSteamUnits;
     private EnergyFactory energyFactory;
+    private Meltdown meltdown;
+    private SystemState systemState;
+
+    public AlarmSystem alarms;
 
     public PowerPlant(ArrayList<Core> buildInCores, Double maxAllowedHeat,EnergyFactory energyFactory) {
         this.buildInCores = buildInCores;
         this.maxAllowedHeat = maxAllowedHeat;
-        this.energyFactory=energyFactory;
+        this.energyFactory = energyFactory;
+        this.systemState = new SystemState();
+        this.meltdown = new Meltdown(systemState);
+
+        this.alarms = new AlarmSystem("working", "meltdown", "warning");
     }
 
-
+    public void toMeltdown() {
+        this.systemState.changeState(this.meltdown);
+        alarms.notify("meltdown", this.meltdown);
+    }
 
     public void explodePowerPlant(){
 
