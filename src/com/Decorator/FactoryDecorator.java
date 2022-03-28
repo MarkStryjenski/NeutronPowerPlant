@@ -1,15 +1,19 @@
 package com.Decorator;
 
 
+import com.Core;
+import com.EnergyPackage;
+
 public abstract class FactoryDecorator implements EnergyFactory {
     protected EnergyFactory energyFactory;
+    protected Core core;
 
     public FactoryDecorator(EnergyFactory energyFactory) {
         this.energyFactory = energyFactory;
     }
 
-    public Double produceEnergy() {
-        return energyFactory.produceEnergy();
+    public EnergyPackage harvestEnergy(int amount) {
+        return energyFactory.harvestEnergy(amount);
     }
 
     public void activateAlert() {

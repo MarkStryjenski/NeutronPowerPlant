@@ -7,7 +7,7 @@ import com.Decorator.EnergyFactory;
 import java.util.ArrayList;
 
 public class PowerPlant implements EnergyFactory {
-    private ArrayList<Core> buildInCores;
+    private Core buildInCore;
     private final Double maxAllowedHeat;
     private Double totalEnergyUnits;
     private Double totalHeatUnits;
@@ -18,8 +18,8 @@ public class PowerPlant implements EnergyFactory {
 
     public AlarmSystem alarms;
 
-    public PowerPlant(ArrayList<Core> buildInCores, Double maxAllowedHeat,EnergyFactory energyFactory) {
-        this.buildInCores = buildInCores;
+    public PowerPlant(Core core, Double maxAllowedHeat,EnergyFactory energyFactory) {
+        this.buildInCore = core;
         this.maxAllowedHeat = maxAllowedHeat;
         this.energyFactory = energyFactory;
         this.systemState = new SystemState();
@@ -33,12 +33,12 @@ public class PowerPlant implements EnergyFactory {
         alarms.notify("meltdown", this.meltdown);
     }
 
-    public ArrayList<Core> getBuildInCores() {
-        return buildInCores;
+    public Core getBuildInCores() {
+        return buildInCore;
     }
 
-    public void setBuildInCores(ArrayList<Core> buildInCores) {
-        this.buildInCores = buildInCores;
+    public void setBuildInCores(Core buildInCores) {
+        this.buildInCore = buildInCores;
     }
 
     public Double getMaxAllowedHeat() {
@@ -75,6 +75,17 @@ public class PowerPlant implements EnergyFactory {
 
     public void setEnergyFactory(EnergyFactory energyFactory) {
         this.energyFactory = energyFactory;
+    }
+
+//    public EnergyPackage harvestEnergy(int amount)
+//    {
+//        return null;
+//    }
+
+    @Override
+    public EnergyPackage harvestEnergy(int amount)
+    {
+        return buildInCore.harvestEnergy(amount);
     }
 
     @Override
