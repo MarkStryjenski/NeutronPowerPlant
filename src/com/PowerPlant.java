@@ -1,17 +1,20 @@
-import com.Alarm.AlarmListener;
 package com;
+
+import com.Alarm.AlarmListener;
 
 import com.Alarm.AlarmSystem;
 import com.Alarm.state.*;
+import com.Core;
 import com.Decorator.EnergyFactory;
+import com.EnergyPackage;
 
 import java.util.ArrayList;
 
 public class PowerPlant implements EnergyFactory, AlarmListener {
     private Core buildInCore;
     private final Double maxAllowedHeat;
-    private final SystemState systemState;
-    private final Meltdown meltdown;
+    private SystemState systemState;
+    private Meltdown meltdown;
     private Double totalEnergyUnits;
     private Double totalHeatUnits;
     private Double totalSteamUnits;
@@ -44,14 +47,6 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
     public void toMeltdown() {
         this.systemState.changeState(this.meltdown);
         alarmSystem.notify("meltdown", this.meltdown);
-    }
-
-    public Core getBuildInCores() {
-        return buildInCore;
-    }
-
-    public void setBuildInCores(Core buildInCores) {
-        this.buildInCore = buildInCores;
     }
 
     public Double getMaxAllowedHeat() {
@@ -90,16 +85,47 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
         this.energyFactory = energyFactory;
     }
 
-//    public EnergyPackage harvestEnergy(int amount)
+    public Core getBuildInCore()
+    {
+        return buildInCore;
+    }
+
+    public void setBuildInCore(Core buildInCore)
+    {
+        this.buildInCore = buildInCore;
+    }
+
+    public Meltdown getMeltdown()
+    {
+        return meltdown;
+    }
+
+    public void setMeltdown(Meltdown meltdown)
+    {
+        this.meltdown = meltdown;
+    }
+
+    public SystemState getSystemState()
+    {
+        return systemState;
+    }
+
+    public void setSystemState(SystemState systemState)
+    {
+        this.systemState = systemState;
+    }
+
+    //    public EnergyPackage harvestEnergy(int amount)
 //    {
 //        return null;
 //    }
 
     @Override
-    public EnergyPackage harvestEnergy(int amount)
+    public EnergyPackage harvestEnergy(int amount, Core core)
     {
         return buildInCore.harvestEnergy(amount);
     }
+
 
     @Override
     public void storeEnergy()

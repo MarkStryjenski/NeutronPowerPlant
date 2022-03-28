@@ -5,6 +5,12 @@ import com.Decorator.EnergyFactory;
 import com.Decorator.FactoryDecorator;
 import com.Decorator.Upgrades.CoreUpgrade1;
 import com.Decorator.Upgrades.EarlyWarningSystem;
+import com.Materials.Material;
+import com.Materials.ProtonParticle;
+import com.Materials.neutronParticle;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -57,7 +63,7 @@ public class Main {
 
         EnergyFactory energyFactory = new EnergyFactory() {
             @Override
-            public EnergyPackage harvestEnergy(int amount) {
+            public EnergyPackage harvestEnergy(int amount, Core core) {
                 return null;
             }
 
@@ -101,79 +107,52 @@ public class Main {
                 return true;
             }
         };
+        Material material = new neutronParticle();
+        Material material2 = new ProtonParticle();
+        Core core = new Core(material);
+        Core core2 = new Core(material2);
+        AlarmSystem  alarmSystem = new AlarmSystem("meltdown", "warning", "workingProperly");
 
+        PowerPlant basePowerPlant = new PowerPlant(core, 21.0, energyFactory, alarmSystem);
+        EnergyFactory newBasePowerPlant = new PowerPlant(core2, 21.0, energyFactory, alarmSystem);
 
-        EnergyFactory energyFactory2 = new EnergyFactory() {
-            @Override
-            public EnergyPackage harvestEnergy(int amount)
-            {
-                return null;
-            }
-
-            @Override
-            public void storeEnergy()
-            {
-
-            }
-
-            @Override
-            public void sllStoredEnergy()
-            {
-
-            }
-
-            @Override
-            public void checkState()
-            {
-
-            }
-
-            @Override
-            public void checkTemperature()
-            {
-
-            }
-
-            @Override
-            public void releasePressure()
-            {
-
-            }
-
-            @Override
-            public void increaseProduction()
-            {
-
-            }
-
-            @Override
-            public boolean explodePowerPlant()
-            {
-                return false;
-            }
-        };
-        PowerPlant power = new PowerPlant(null, 21.0, energyFactory);
         //FactoryDecorator decorator = new FactoryDecorator(pp.getEnergyFactory());
+        //System.out.println(basePowerPlant.harvestEnergy(1, basePowerPlant.getBuildInCore()).getEnergyUnits()); //output 10
 
-         EnergyFactory source = power.getEnergyFactory();
+
+        //System.out.println(newBasePowerPlant.harvestEnergy(1, core2).getEnergyUnits());
+        newBasePowerPlant = new CoreUpgrade1(newBasePowerPlant);
+
+//        Object[] i = new Object[20];
+//        i = newBasePowerPlant.getClass().getMethods();
+//
+//        System.out.println(Arrays.toString(i));
+         //System.out.println(newBasePowerPlant.harvestEnergy(1, core2).getEnergyUnits());// output changes now doesnt allow not allowed things
+
+        newBasePowerPlant = new CoreUpgrade1(new EarlyWarningSystem(newBasePowerPlant, alarmSystem));
+
+        System.out.println(newBasePowerPlant.harvestEnergy(1, core2).getEnergyUnits());
+
+
+         //EnergyFactory source = power.getEnergyFactory();
 //        System.out.println(source.produceEnergy());
 
 
 //        source = new CoreUpgrade1(source);
 //        System.out.println(power.harvestEnergy());
-
-        CoreUpgrade1 cu1 = new CoreUpgrade1(source);
-
-        cu1.activateAlert();
-
-        AlarmSystem alarmSystem=new AlarmSystem();
-
-//        System.out.println(cu1.harvestEnergy());
-
-        FactoryDecorator ews = new EarlyWarningSystem(cu1, alarmSystem);
-
-//        System.out.println(ews.harvestEnergy());
-        ews.activateAlert();
+//
+//        CoreUpgrade1 cu1 = new CoreUpgrade1(source);
+//
+//        cu1.activateAlert();
+//
+//        AlarmSystem alarmSystem=new AlarmSystem();
+//
+////        System.out.println(cu1.harvestEnergy());
+//
+//        FactoryDecorator ews = new EarlyWarningSystem(cu1, alarmSystem);
+//
+////        System.out.println(ews.harvestEnergy());
+//        ews.activateAlert();
 
 //        AlarmSystem alarmSystem=new AlarmSystem();
 //

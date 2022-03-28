@@ -1,5 +1,6 @@
 package com.Decorator.Upgrades;
 
+import com.Core;
 import com.Decorator.EnergyFactory;
 import com.Decorator.FactoryDecorator;
 import com.EnergyPackage;
@@ -11,14 +12,56 @@ public class CoreUpgrade2 extends FactoryDecorator {
     }
 
     @Override
-    public EnergyPackage harvestEnergy(int amount) {
-        Material inputMaterial = this.core.getInputMaterial();
-        if(amount <= this.core.getMaximumCapacity()){
+    public EnergyPackage harvestEnergy(int amount, Core core) {
+        Material inputMaterial = core.getInputMaterial();
+        if(amount <= core.getMaximumCapacity()){
             double heatUnits = (double) Math.round((amount * inputMaterial.getHeatPerUnit()*100)/100);
             double steamUnits = (double) Math.round((amount * inputMaterial.getSteamPerUnit()*100)/100);
             double energyUnits = (double) Math.round((amount * inputMaterial.getEnergyPerUnit())*100)/100;
             return new EnergyPackage(energyUnits, heatUnits, steamUnits);
         }
         return null;
+    }
+
+    @Override
+    public void storeEnergy()
+    {
+        energyFactory.storeEnergy();
+    }
+
+    @Override
+    public void sllStoredEnergy()
+    {
+        energyFactory.sllStoredEnergy();
+    }
+
+    @Override
+    public void checkState()
+    {
+        energyFactory.checkState();
+    }
+
+    @Override
+    public void checkTemperature()
+    {
+        energyFactory.checkTemperature();
+    }
+
+    @Override
+    public void releasePressure()
+    {
+        energyFactory.releasePressure();
+    }
+
+    @Override
+    public void increaseProduction()
+    {
+        energyFactory.increaseProduction();
+    }
+
+    @Override
+    public boolean explodePowerPlant()
+    {
+        return false;
     }
 }

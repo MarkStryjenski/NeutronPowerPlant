@@ -1,9 +1,11 @@
 package com.Decorator;
 
+import com.Core;
+import com.Decorator.Upgrades.EarlyWarningSystem;
 import com.EnergyPackage;
 
 public interface EnergyFactory {
-    EnergyPackage harvestEnergy(int amount);
+    EnergyPackage harvestEnergy(int amount, Core core);
     default void activateAlert(){
         System.out.println("activate alert defulat interface");
     }
