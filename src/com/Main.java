@@ -1,12 +1,10 @@
+package com;
+
 import com.Alarm.AlarmSystem;
 import com.Decorator.EnergyFactory;
 import com.Decorator.FactoryDecorator;
 import com.Decorator.Upgrades.CoreUpgrade1;
 import com.Decorator.Upgrades.EarlyWarningSystem;
-import com.Decorator.Upgrades.FacilitySafetyUpgrade;
-
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +13,7 @@ public class Main {
 //        System.out.println("----------------------------POWER PLANT----------------------------");
 //        System.out.print("Welcome to the power plant!!!!! \n ");
 
-//        System.out.print("Choose an action: \n a) Add Material \n b) Upgrade PowerPlant \n");
+//        System.out.print("Choose an action: \n a) Add Material \n b) Upgrade com.PowerPlant \n");
 
 //        while (sc.hasNext()) {
 //            try {

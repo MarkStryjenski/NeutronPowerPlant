@@ -1,3 +1,5 @@
+package com;
+
 import com.Alarm.AlarmSystem;
 import com.Alarm.state.*;
 import com.Decorator.EnergyFactory;
