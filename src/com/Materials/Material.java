@@ -6,32 +6,32 @@ public abstract class Material {
     protected Double steamPerUnit;
 
     //getters setters
-    protected Double getEnergyPerUnit()
+    public Double getEnergyPerUnit()
     {
         return energyPerUnit;
     }
 
-    protected void setEnergyPerUnit(Double energyPerUnit)
+    public void setEnergyPerUnit(Double energyPerUnit)
     {
         this.energyPerUnit = energyPerUnit;
     }
 
-    protected Double getHeatPerUnit()
+    public Double getHeatPerUnit()
     {
         return heatPerUnit;
     }
 
-    protected void setHeatPerUnit(Double heatPerUnit)
+    public void setHeatPerUnit(Double heatPerUnit)
     {
         this.heatPerUnit = heatPerUnit;
     }
 
-    protected Double getSteamPerUnit()
+    public Double getSteamPerUnit()
     {
         return steamPerUnit;
     }
 
-    protected void setSteamPerUnit(Double steamPerUnit)
+    public void setSteamPerUnit(Double steamPerUnit)
     {
         this.steamPerUnit = steamPerUnit;
     }
