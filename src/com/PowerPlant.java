@@ -20,6 +20,7 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
     private Double totalSteamUnits;
     private EnergyFactory energyFactory;
     public AlarmSystem alarmSystem;
+    private int warningCount;
 
     public PowerPlant(Core core, Double maxAllowedHeat,EnergyFactory energyFactory, AlarmSystem alarmSystem) {
         this.buildInCore = core;
@@ -31,6 +32,7 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
         this.totalSteamUnits = 0.0;
         this.systemState = new SystemState();
         this.meltdown = new Meltdown(systemState);
+        this.warningCount=0;
     }
 
     public void setTotalUnits(EnergyPackage energyPackage) {
@@ -41,7 +43,6 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
         if(this.getTotalHeatUnits() > 2000.0 || this.getTotalSteamUnits() > 1500.0) {
             this.toMeltdown();
         }
-
     }
 
     public void toMeltdown() {
@@ -170,7 +171,20 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
     }
 
     @Override
+    public void toWarning() {
+
+    }
+
+    @Override
     public void update(String eventType, State state) {
         System.out.println("Alarm triggered! " + "Event type: " + eventType + ", State: " + state);
+        if(eventType.equals("meltdown")){
+            System.exit(0);
+        }
+        if(warningCount==2){
+            System.out.println("Too many warnings, Reactor meltdown!!!");
+            System.exit(0);
+        }
+        warningCount++;
     }
 }

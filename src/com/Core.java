@@ -1,6 +1,7 @@
 package com;
 
 import com.Materials.Material;
+import com.Materials.NeutronParticle;
 
 public class Core {
     private Material inputMaterial;
@@ -8,16 +9,19 @@ public class Core {
 
     public Core(Material inputMaterial) {
         this.inputMaterial = inputMaterial;
-        this.maximumCapacity = 100;
+        this.maximumCapacity = 3000;
     }
 
     public EnergyPackage harvestEnergy(int amount){
-        if(inputMaterial instanceof com.Materials.neutronParticle){
+        if(inputMaterial instanceof NeutronParticle){
             if(amount <= maximumCapacity){
                 double heatUnits = (double) Math.round((amount * inputMaterial.getHeatPerUnit()*100)/100);
                 double steamUnits = (double) Math.round((amount * inputMaterial.getSteamPerUnit()*100)/100);
                 double energyUnits = (double) Math.round((amount * inputMaterial.getEnergyPerUnit())*100)/100;
+                System.out.println("Created heatUnits: "+heatUnits+" steamUnits: "+steamUnits+" energyUnits: "+energyUnits);
                 return new EnergyPackage(energyUnits, heatUnits, steamUnits);
+            }else{
+                System.out.println("You have put more than max capacity allows");
             }
             return null;
         }

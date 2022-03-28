@@ -18,9 +18,18 @@ public class CoreUpgrade2 extends FactoryDecorator {
             double heatUnits = (double) Math.round((amount * inputMaterial.getHeatPerUnit()*100)/100);
             double steamUnits = (double) Math.round((amount * inputMaterial.getSteamPerUnit()*100)/100);
             double energyUnits = (double) Math.round((amount * inputMaterial.getEnergyPerUnit())*100)/100;
+            System.out.println("Created heatUnits: "+heatUnits+" steamUnits: "+steamUnits+" energyUnits: "+energyUnits);
+
             return new EnergyPackage(energyUnits, heatUnits, steamUnits);
+        }else{
+            System.out.println("You have put more than max capacity allows");
         }
         return null;
+    }
+
+    @Override
+    public void activateAlert() {
+
     }
 
     @Override
@@ -63,5 +72,10 @@ public class CoreUpgrade2 extends FactoryDecorator {
     public boolean explodePowerPlant()
     {
         return false;
+    }
+
+    @Override
+    public void toWarning() {
+
     }
 }

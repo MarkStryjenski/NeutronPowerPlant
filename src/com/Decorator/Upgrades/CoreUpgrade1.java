@@ -5,6 +5,7 @@ import com.Decorator.EnergyFactory;
 import com.Decorator.FactoryDecorator;
 import com.EnergyPackage;
 import com.Materials.Material;
+import com.Materials.NeutronParticle;
 
 public class CoreUpgrade1 extends FactoryDecorator {
 
@@ -16,16 +17,25 @@ public class CoreUpgrade1 extends FactoryDecorator {
     @Override
     public EnergyPackage harvestEnergy(int amount, Core core) {
         Material inputMaterial = core.getInputMaterial();
-        if(inputMaterial instanceof com.Materials.neutronParticle || inputMaterial instanceof com.Materials.ProtonParticle){
+        if(inputMaterial instanceof NeutronParticle || inputMaterial instanceof com.Materials.ProtonParticle){
             if(amount <= core.getMaximumCapacity()){
                 double heatUnits = (double) Math.round((amount * inputMaterial.getHeatPerUnit()*100)/100);
                 double steamUnits = (double) Math.round((amount * inputMaterial.getSteamPerUnit()*100)/100);
                 double energyUnits = (double) Math.round((amount * inputMaterial.getEnergyPerUnit())*100)/100;
+                System.out.println("Created heatUnits: "+heatUnits+" steamUnits: "+steamUnits+" energyUnits: "+energyUnits);
+
                 return new EnergyPackage(energyUnits, heatUnits, steamUnits);
+            }else{
+                System.out.println("You have put more than max capacity allows");
             }
             return null;
         }
         return null;
+    }
+
+    @Override
+    public void activateAlert() {
+
     }
 
     @Override
@@ -68,6 +78,11 @@ public class CoreUpgrade1 extends FactoryDecorator {
     public boolean explodePowerPlant()
     {
         return false;
+    }
+
+    @Override
+    public void toWarning() {
+
     }
 
     public EnergyFactory getEnergyFactory() {

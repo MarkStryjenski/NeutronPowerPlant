@@ -28,6 +28,11 @@ public class FacilitySafetyUpgrade extends FactoryDecorator {
     }
 
     @Override
+    public void activateAlert() {
+
+    }
+
+    @Override
     public void storeEnergy()
     {
 
@@ -70,6 +75,11 @@ public class FacilitySafetyUpgrade extends FactoryDecorator {
             return false;
 //        }
 //        return true;
+    }
+
+    @Override
+    public void toWarning() {
+
     }
 
     public boolean isBonusLiveUsed() {

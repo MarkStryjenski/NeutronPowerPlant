@@ -17,4 +17,5 @@ public interface EnergyFactory {
     void releasePressure();
     void increaseProduction();
     boolean explodePowerPlant();
+    void toWarning();
 }

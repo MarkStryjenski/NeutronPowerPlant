@@ -9,4 +9,12 @@ public abstract class State {
     }
 
     public abstract void onChangeState();
+
+    public SystemState getSystemState() {
+        return systemState;
+    }
+
+    public void setSystemState(SystemState systemState) {
+        this.systemState = systemState;
+    }
 }

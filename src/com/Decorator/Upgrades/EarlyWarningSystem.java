@@ -21,6 +21,7 @@ public class EarlyWarningSystem extends FactoryDecorator {
         this.warning = new Warning(systemState);
     }
 
+    @Override
     public void toWarning() {
         this.systemState.changeState(this.warning);
         alarmSystem.notify("warning", this.warning);
