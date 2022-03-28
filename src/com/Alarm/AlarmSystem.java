@@ -1,7 +1,6 @@
 package com.Alarm;
 
-import com.Alarm.state.State;
-import com.Alarm.state.WorkingProperly;
+import com.Alarm.state.*;
 
 import java.util.List;
 import java.util.Map;
@@ -10,24 +9,20 @@ import java.util.ArrayList;
 
 public class AlarmSystem {
     private final Map<State, List<AlarmListener>> listeners = new HashMap<>();
-    private State state;
 
+    private WorkingProperly workingProperly;
+    private Meltdown meltdown;
+    private Warning warning;
+    private SystemState systemState;
 
     public AlarmSystem(State... operations) {
-        this.state = new WorkingProperly(this);
-
+        this.systemState = new SystemState();
+        this.workingProperly = new WorkingProperly(systemState);
+        this.workingProperly.onChangeState();
+        System.out.println(this.systemState.getState());
         for (State operation : operations) {
             this.listeners.put(operation, new ArrayList<>());
         }
-    }
-
-    public void changeState(State state) {
-        this.state = state;
-        // check if state is bad if yes notifysubs.
-    }
-
-    public State getState() {
-        return this.state;
     }
 
     public void subscribe(State eventType, AlarmListener listener) {

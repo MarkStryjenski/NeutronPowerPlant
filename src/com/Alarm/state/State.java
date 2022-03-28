@@ -4,10 +4,10 @@ import com.Alarm.AlarmSystem;
 
 public abstract class State {
 
-    public AlarmSystem alarmSystem;
+    public SystemState systemState;
 
-    public State(AlarmSystem alarmSystem) {
-        this.alarmSystem = alarmSystem;
+    public State(SystemState systemState) {
+        this.systemState = systemState;
     }
 
     public abstract void onChangeState();

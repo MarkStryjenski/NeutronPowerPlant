@@ -1,15 +1,13 @@
 package com.Alarm.state;
 
-import com.Alarm.AlarmSystem;
-
 public class WorkingProperly extends State {
 
-    public WorkingProperly(AlarmSystem alarmSystem) {
-        super(alarmSystem);
+    public WorkingProperly(SystemState systemState) {
+        super(systemState);
     }
 
     @Override
     public void onChangeState() {
-        alarmSystem.changeState(new WorkingProperly(alarmSystem));
+        systemState.changeState(new WorkingProperly(systemState));
     }
 }
