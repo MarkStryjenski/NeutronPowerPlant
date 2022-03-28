@@ -11,7 +11,7 @@ public class AlarmSystem {
     private final Map<String, List<AlarmListener>> listeners = new HashMap<>();
 
     public AlarmSystem(String... operations) {
-
+        Object[] arr =  new Object[] {new Object()};
         for (String operation : operations) {
             this.listeners.put(operation, new ArrayList<>());
         }
