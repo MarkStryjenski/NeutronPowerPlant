@@ -7,5 +7,4 @@ public class ProtonParticle extends Material {
         this.heatPerUnit = 5.0;
         this.steamPerUnit = 10.15;
     }
-
 }

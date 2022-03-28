@@ -4,7 +4,7 @@ import com.Decorator.EnergyFactory;
 
 import java.util.ArrayList;
 
-public class PowerPlant {
+public class PowerPlant implements EnergyFactory {
     private ArrayList<Core> buildInCores;
     private final Double maxAllowedHeat;
     private Double totalEnergyUnits;
@@ -29,10 +29,6 @@ public class PowerPlant {
     public void toMeltdown() {
         this.systemState.changeState(this.meltdown);
         alarms.notify("meltdown", this.meltdown);
-    }
-
-    public void explodePowerPlant(){
-
     }
 
     public ArrayList<Core> getBuildInCores() {
@@ -77,5 +73,47 @@ public class PowerPlant {
 
     public void setEnergyFactory(EnergyFactory energyFactory) {
         this.energyFactory = energyFactory;
+    }
+
+    @Override
+    public void storeEnergy()
+    {
+
+    }
+
+    @Override
+    public void sllStoredEnergy()
+    {
+
+    }
+
+    @Override
+    public void checkState()
+    {
+
+    }
+
+    @Override
+    public void checkTemperature()
+    {
+
+    }
+
+    @Override
+    public void releasePressure()
+    {
+
+    }
+
+    @Override
+    public void increaseProduction()
+    {
+
+    }
+
+    @Override
+    public boolean explodePowerPlant()
+    {
+        return false;
     }
 }

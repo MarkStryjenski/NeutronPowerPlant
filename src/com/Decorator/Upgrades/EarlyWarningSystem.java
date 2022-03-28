@@ -1,17 +1,20 @@
 package com.Decorator.Upgrades;
 
+import com.Alarm.AlarmSystem;
 import com.Decorator.EnergyFactory;
 import com.Decorator.FactoryDecorator;
 
 public class EarlyWarningSystem extends FactoryDecorator {
-    public EarlyWarningSystem(EnergyFactory energyFactory) {
+
+    private AlarmSystem alarmSystem;
+
+    public EarlyWarningSystem(EnergyFactory energyFactory,AlarmSystem alarmSystem) {
         super(energyFactory);
+        this.alarmSystem=alarmSystem;
     }
 
     @Override
     public void activateAlert(){
-
+        System.out.println("Activating override alert BIDUBIDUBIDU");
     }
-
-
 }

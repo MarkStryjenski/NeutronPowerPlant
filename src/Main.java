@@ -1,8 +1,9 @@
-import com.Alarm.MeltdownListener;
+import com.Alarm.AlarmSystem;
 import com.Decorator.EnergyFactory;
 import com.Decorator.FactoryDecorator;
 import com.Decorator.Upgrades.CoreUpgrade1;
 import com.Decorator.Upgrades.EarlyWarningSystem;
+import com.Decorator.Upgrades.FacilitySafetyUpgrade;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,9 +11,9 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         // creates an object of Scanner
-        Scanner sc = new Scanner(System.in);
-        System.out.println("----------------------------POWER PLANT----------------------------");
-        System.out.print("Welcome to the power plant!!!!! \n ");
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("----------------------------POWER PLANT----------------------------");
+//        System.out.print("Welcome to the power plant!!!!! \n ");
 
 //        System.out.print("Choose an action: \n a) Add Material \n b) Upgrade PowerPlant \n");
 
@@ -96,22 +97,93 @@ public class Main {
             public void increaseProduction() {
 
             }
+
+            @Override
+            public boolean explodePowerPlant() {
+                return true;
+            }
         };
-        PowerPlant pp = new PowerPlant(null, 21.0, energyFactory);
 
-//        FactoryDecorator source = new FactoryDecorator(pp.getEnergyFactory());
-        EnergyFactory source = pp.getEnergyFactory();
-        System.out.println(source.produceEnergy());
 
-        source = new CoreUpgrade1(source);
+        EnergyFactory energyFactory2 = new EnergyFactory() {
+            @Override
+            public void storeEnergy()
+            {
 
-        System.out.println(source.produceEnergy());
+            }
 
-        source=new CoreUpgrade1(new EarlyWarningSystem(source));
+            @Override
+            public void sllStoredEnergy()
+            {
 
-        source=new CoreUpgrade1(new EarlyWarningSystem(source));
+            }
 
-        System.out.println(source.produceEnergy());
+            @Override
+            public void checkState()
+            {
+
+            }
+
+            @Override
+            public void checkTemperature()
+            {
+
+            }
+
+            @Override
+            public void releasePressure()
+            {
+
+            }
+
+            @Override
+            public void increaseProduction()
+            {
+
+            }
+
+            @Override
+            public boolean explodePowerPlant()
+            {
+                return false;
+            }
+        };
+        PowerPlant power = new PowerPlant(null, 21.0, energyFactory);
+        //FactoryDecorator decorator = new FactoryDecorator(pp.getEnergyFactory());
+
+         EnergyFactory source = power.getEnergyFactory();
+//        System.out.println(source.produceEnergy());
+
+
+//        source = new CoreUpgrade1(source);
+        System.out.println(power.produceEnergy());
+
+        CoreUpgrade1 cu1 = new CoreUpgrade1(source);
+
+        cu1.activateAlert();
+
+        AlarmSystem alarmSystem=new AlarmSystem();
+
+        System.out.println(cu1.produceEnergy());
+
+        FactoryDecorator ews = new EarlyWarningSystem(cu1, alarmSystem);
+
+        System.out.println(ews.produceEnergy());
+        ews.activateAlert();
+
+//        AlarmSystem alarmSystem=new AlarmSystem();
+//
+//        source=new CoreUpgrade1(new EarlyWarningSystem(source,alarmSystem));
+//
+//        source=new CoreUpgrade1(new EarlyWarningSystem(source,alarmSystem));
+//
+//        System.out.println(source.produceEnergy());
+
+//        source=new CoreUpgrade1(new EarlyWarningSystem((new FacilitySafetyUpgrade(source)),alarmSystem));
+//
+//
+//        System.out.println(
+//                source.explodePowerPlant());
 
 //        source = new CoreUpgrade1();
     }
