@@ -15,8 +15,6 @@ public class EarlyWarningSystem extends FactoryDecorator {
 
     @Override
     public void activateAlert(){
-
+        System.out.println("Activating override alert BIDUBIDUBIDU");
     }
-
-
 }
