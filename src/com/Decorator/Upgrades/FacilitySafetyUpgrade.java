@@ -1,7 +1,9 @@
 package com.Decorator.Upgrades;
 
+import com.Core;
 import com.Decorator.EnergyFactory;
 import com.Decorator.FactoryDecorator;
+import com.EnergyPackage;
 
 public class FacilitySafetyUpgrade extends FactoryDecorator {
 
@@ -16,6 +18,48 @@ public class FacilitySafetyUpgrade extends FactoryDecorator {
      * Give player another chance when the power plant breaks
      */
     public void advancedFireExtinguisherSystem(){
+
+    }
+
+    @Override
+    public EnergyPackage harvestEnergy(int amount, Core core)
+    {
+        return null;
+    }
+
+    @Override
+    public void storeEnergy()
+    {
+
+    }
+
+    @Override
+    public void sllStoredEnergy()
+    {
+
+    }
+
+    @Override
+    public void checkState()
+    {
+
+    }
+
+    @Override
+    public void checkTemperature()
+    {
+
+    }
+
+    @Override
+    public void releasePressure()
+    {
+
+    }
+
+    @Override
+    public void increaseProduction()
+    {
 
     }
 
