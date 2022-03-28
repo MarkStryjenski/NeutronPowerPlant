@@ -1,3 +1,5 @@
+package com;
+
 public class EnergyPackage {
     private double energyUnits;
     private double heatUnits;

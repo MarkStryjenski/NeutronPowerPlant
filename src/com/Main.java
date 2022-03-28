@@ -1,12 +1,10 @@
+package com;
+
 import com.Alarm.AlarmSystem;
 import com.Decorator.EnergyFactory;
 import com.Decorator.FactoryDecorator;
 import com.Decorator.Upgrades.CoreUpgrade1;
 import com.Decorator.Upgrades.EarlyWarningSystem;
-import com.Decorator.Upgrades.FacilitySafetyUpgrade;
-
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,7 +13,7 @@ public class Main {
 //        System.out.println("----------------------------POWER PLANT----------------------------");
 //        System.out.print("Welcome to the power plant!!!!! \n ");
 
-//        System.out.print("Choose an action: \n a) Add Material \n b) Upgrade PowerPlant \n");
+//        System.out.print("Choose an action: \n a) Add Material \n b) Upgrade com.PowerPlant \n");
 
 //        while (sc.hasNext()) {
 //            try {
@@ -59,7 +57,7 @@ public class Main {
 
         EnergyFactory energyFactory = new EnergyFactory() {
             @Override
-            public Double produceEnergy() {
+            public EnergyPackage harvestEnergy(int amount) {
                 return null;
             }
 
@@ -106,6 +104,12 @@ public class Main {
 
 
         EnergyFactory energyFactory2 = new EnergyFactory() {
+            @Override
+            public EnergyPackage harvestEnergy(int amount)
+            {
+                return null;
+            }
+
             @Override
             public void storeEnergy()
             {
@@ -156,7 +160,7 @@ public class Main {
 
 
 //        source = new CoreUpgrade1(source);
-        System.out.println(power.produceEnergy());
+//        System.out.println(power.harvestEnergy());
 
         CoreUpgrade1 cu1 = new CoreUpgrade1(source);
 
@@ -164,11 +168,11 @@ public class Main {
 
         AlarmSystem alarmSystem=new AlarmSystem();
 
-        System.out.println(cu1.produceEnergy());
+//        System.out.println(cu1.harvestEnergy());
 
         FactoryDecorator ews = new EarlyWarningSystem(cu1, alarmSystem);
 
-        System.out.println(ews.produceEnergy());
+//        System.out.println(ews.harvestEnergy());
         ews.activateAlert();
 
 //        AlarmSystem alarmSystem=new AlarmSystem();

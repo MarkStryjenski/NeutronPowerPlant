@@ -1,10 +1,9 @@
 package com.Decorator;
 
+import com.EnergyPackage;
+
 public interface EnergyFactory {
-    default Double produceEnergy(){
-        System.out.println("produce energy interface default");
-        return 1.0;
-    }
+    EnergyPackage harvestEnergy(int amount);
     default void activateAlert(){
         System.out.println("activate alert defulat interface");
     }

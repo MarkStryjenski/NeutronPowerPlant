@@ -1,4 +1,6 @@
 import com.Alarm.AlarmListener;
+package com;
+
 import com.Alarm.AlarmSystem;
 import com.Alarm.state.*;
 import com.Decorator.EnergyFactory;
@@ -6,7 +8,7 @@ import com.Decorator.EnergyFactory;
 import java.util.ArrayList;
 
 public class PowerPlant implements EnergyFactory, AlarmListener {
-    private ArrayList<Core> buildInCores;
+    private Core buildInCore;
     private final Double maxAllowedHeat;
     private final SystemState systemState;
     private final Meltdown meltdown;
@@ -16,8 +18,8 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
     private EnergyFactory energyFactory;
     public AlarmSystem alarmSystem;
 
-    public PowerPlant(ArrayList<Core> buildInCores, Double maxAllowedHeat,EnergyFactory energyFactory, AlarmSystem alarmSystem) {
-        this.buildInCores = buildInCores;
+    public PowerPlant(Core core, Double maxAllowedHeat,EnergyFactory energyFactory, AlarmSystem alarmSystem) {
+        this.buildInCore = core;
         this.maxAllowedHeat = maxAllowedHeat;
         this.energyFactory = energyFactory;
         this.alarmSystem = alarmSystem;
@@ -44,12 +46,12 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
         alarmSystem.notify("meltdown", this.meltdown);
     }
 
-    public ArrayList<Core> getBuildInCores() {
-        return buildInCores;
+    public Core getBuildInCores() {
+        return buildInCore;
     }
 
-    public void setBuildInCores(ArrayList<Core> buildInCores) {
-        this.buildInCores = buildInCores;
+    public void setBuildInCores(Core buildInCores) {
+        this.buildInCore = buildInCores;
     }
 
     public Double getMaxAllowedHeat() {
@@ -86,6 +88,17 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
 
     public void setEnergyFactory(EnergyFactory energyFactory) {
         this.energyFactory = energyFactory;
+    }
+
+//    public EnergyPackage harvestEnergy(int amount)
+//    {
+//        return null;
+//    }
+
+    @Override
+    public EnergyPackage harvestEnergy(int amount)
+    {
+        return buildInCore.harvestEnergy(amount);
     }
 
     @Override
