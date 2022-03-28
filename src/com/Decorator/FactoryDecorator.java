@@ -47,4 +47,11 @@ public abstract class FactoryDecorator implements EnergyFactory {
     public void increaseProduction() {
 
     }
+
+    @Override
+    public boolean explodePowerPlant() {
+        return true;
+    }
+
+    ;
 }

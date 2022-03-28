@@ -18,10 +18,6 @@ public class PowerPlant {
 
 
 
-    public void explodePowerPlant(){
-
-    }
-
     public ArrayList<Core> getBuildInCores() {
         return buildInCores;
     }

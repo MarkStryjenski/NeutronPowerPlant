@@ -9,4 +9,5 @@ public interface EnergyFactory {
     void checkTemperature();
     void releasePressure();
     void increaseProduction();
+    boolean explodePowerPlant();
 }

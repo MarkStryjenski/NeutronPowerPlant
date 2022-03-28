@@ -1,7 +1,9 @@
+import com.Alarm.AlarmSystem;
 import com.Decorator.EnergyFactory;
 import com.Decorator.FactoryDecorator;
 import com.Decorator.Upgrades.CoreUpgrade1;
 import com.Decorator.Upgrades.EarlyWarningSystem;
+import com.Decorator.Upgrades.FacilitySafetyUpgrade;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -95,6 +97,11 @@ public class Main {
             public void increaseProduction() {
 
             }
+
+            @Override
+            public boolean explodePowerPlant() {
+                return true;
+            }
         };
         PowerPlant pp = new PowerPlant(null, 21.0, energyFactory);
 
@@ -106,11 +113,19 @@ public class Main {
 
         System.out.println(source.produceEnergy());
 
-        source=new CoreUpgrade1(new EarlyWarningSystem(source));
+        AlarmSystem alarmSystem=new AlarmSystem();
 
-        source=new CoreUpgrade1(new EarlyWarningSystem(source));
+        source=new CoreUpgrade1(new EarlyWarningSystem(source,alarmSystem));
+
+        source=new CoreUpgrade1(new EarlyWarningSystem(source,alarmSystem));
 
         System.out.println(source.produceEnergy());
+
+        source=new CoreUpgrade1(new EarlyWarningSystem((new FacilitySafetyUpgrade(source)),alarmSystem));
+
+
+        System.out.println(
+                source.explodePowerPlant());
 
 //        source = new CoreUpgrade1();
     }
