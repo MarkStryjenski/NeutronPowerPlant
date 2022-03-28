@@ -35,15 +35,15 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
         this.warningCount=0;
     }
 
-    public void setTotalUnits(EnergyPackage energyPackage) {
-        this.setTotalEnergyUnits(this.getTotalEnergyUnits() + energyPackage.getEnergyUnits());
-        this.setTotalHeatUnits(this.getTotalEnergyUnits() + energyPackage.getHeatUnits());
-        this.setTotalSteamUnits(this.getTotalSteamUnits() + energyPackage.getSteamUnits());
-
-        if(this.getTotalHeatUnits() > 2000.0 || this.getTotalSteamUnits() > 1500.0) {
-            this.toMeltdown();
-        }
-    }
+//    public void setTotalUnits(EnergyPackage energyPackage) {
+//        this.setTotalEnergyUnits(this.getTotalEnergyUnits() + energyPackage.getEnergyUnits());
+//        this.setTotalHeatUnits(this.getTotalEnergyUnits() + energyPackage.getHeatUnits());
+//        this.setTotalSteamUnits(this.getTotalSteamUnits() + energyPackage.getSteamUnits());
+//
+//        if(this.getTotalHeatUnits() > 2000.0 || this.getTotalSteamUnits() > 1500.0) {
+//            this.toMeltdown();
+//        }
+//    }
 
     public void toMeltdown() {
         this.systemState.changeState(this.meltdown);
@@ -124,7 +124,7 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
     @Override
     public EnergyPackage harvestEnergy(int amount, Core core)
     {
-        return buildInCore.harvestEnergy(amount);
+        return buildInCore.harvestEnergy(amount, core);
     }
 
 
@@ -173,6 +173,36 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
     @Override
     public void toWarning() {
 
+    }
+
+    @Override
+    public void setTotalUnits(EnergyPackage energyPackage)
+    {
+        this.setTotalEnergyUnits(this.getTotalEnergyUnits() + energyPackage.getEnergyUnits());
+        this.setTotalHeatUnits(this.getTotalEnergyUnits() + energyPackage.getHeatUnits());
+        this.setTotalSteamUnits(this.getTotalSteamUnits() + energyPackage.getSteamUnits());
+
+        if(this.getTotalHeatUnits() > 2000.0 || this.getTotalSteamUnits() > 1500.0) {
+            this.toMeltdown();
+        }
+    }
+
+    @Override
+    public void setCore(Core core)
+    {
+        this.buildInCore = core;
+    }
+
+    @Override
+    public Core getCore()
+    {
+        return this.getBuildInCore();
+    }
+
+    @Override
+    public AlarmSystem getAlarmSystem()
+    {
+        return this.alarmSystem;
     }
 
     @Override

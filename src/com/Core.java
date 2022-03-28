@@ -12,8 +12,8 @@ public class Core {
         this.maximumCapacity = 3000;
     }
 
-    public EnergyPackage harvestEnergy(int amount){
-        if(inputMaterial instanceof NeutronParticle){
+    public EnergyPackage harvestEnergy(int amount, Core core){
+        if(core.getInputMaterial() instanceof NeutronParticle){
             if(amount <= maximumCapacity){
                 double heatUnits = (double) Math.round((amount * inputMaterial.getHeatPerUnit()*100)/100);
                 double steamUnits = (double) Math.round((amount * inputMaterial.getSteamPerUnit()*100)/100);

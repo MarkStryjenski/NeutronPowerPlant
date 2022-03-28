@@ -1,5 +1,7 @@
 package com.Decorator.Upgrades;
 
+import com.Alarm.AlarmSystem;
+import com.Alarm.state.State;
 import com.Core;
 import com.Decorator.EnergyFactory;
 import com.Decorator.FactoryDecorator;
@@ -76,6 +78,36 @@ public class CoreUpgrade2 extends FactoryDecorator {
 
     @Override
     public void toWarning() {
+
+    }
+
+    @Override
+    public void setTotalUnits(EnergyPackage energyPackage)
+    {
+        energyFactory.setTotalUnits(energyPackage);
+    }
+
+    @Override
+    public void setCore(Core core)
+    {
+        energyFactory.setCore(core);
+    }
+
+    @Override
+    public Core getCore()
+    {
+        return energyFactory.getCore();
+    }
+
+    @Override
+    public AlarmSystem getAlarmSystem()
+    {
+        return null;
+    }
+
+    @Override
+    public void update(String eventType, State state)
+    {
 
     }
 }

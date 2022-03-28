@@ -1,6 +1,7 @@
 package com;
 
 import com.Alarm.AlarmSystem;
+import com.Alarm.state.State;
 import com.Decorator.EnergyFactory;
 import com.Decorator.Upgrades.CoreUpgrade1;
 import com.Decorator.Upgrades.CoreUpgrade2;
@@ -20,6 +21,12 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         EnergyFactory energyFactory = new EnergyFactory() {
+            @Override
+            public void update(String eventType, State state)
+            {
+
+            }
+
             @Override
             public EnergyPackage harvestEnergy(int amount, Core core) {
                 return null;
@@ -69,6 +76,30 @@ public class Main {
             public void toWarning() {
 
             }
+
+            @Override
+            public void setTotalUnits(EnergyPackage energyPackage)
+            {
+
+            }
+
+            @Override
+            public void setCore(Core core)
+            {
+
+            }
+
+            @Override
+            public Core getCore()
+            {
+                return null;
+            }
+
+            @Override
+            public AlarmSystem getAlarmSystem()
+            {
+                return null;
+            }
         };
         Material neutronParticle = new NeutronParticle();
         Material protonParticle = new ProtonParticle();
@@ -83,14 +114,14 @@ public class Main {
         AlarmSystem alarmSystem = new AlarmSystem("meltdown", "warning", "workingProperly");
 
         PowerPlant powerPlant = new PowerPlant(core1, 21.0, energyFactory, alarmSystem);
-        powerPlant.alarmSystem.subscribe("meltdown",powerPlant);
-        powerPlant.alarmSystem.subscribe("warning",powerPlant);
+
         EnergyFactory newBasePowerPlant = new PowerPlant(core1, 21.0, energyFactory, alarmSystem);
+        newBasePowerPlant.getAlarmSystem().subscribe("meltdown",newBasePowerPlant);
+        newBasePowerPlant.getAlarmSystem().subscribe("warning",newBasePowerPlant);
 
         System.out.println("----------------------------POWER PLANT----------------------------");
         System.out.print("Welcome to the power plant!!!!! \n ");
         System.out.print("Choose an action: \n a) Add Material \n b) Upgrade PowerPlant  \n");
-
 
         while (sc.hasNext()) {
             try {
@@ -102,30 +133,35 @@ public class Main {
                         System.out.println("How much material you want to add:");
                         if (inpAddMaterial == 1) {
                             int amountInserted = sc.nextInt();
+                            newBasePowerPlant.setCore(core3);
+                            EnergyPackage result = newBasePowerPlant.harvestEnergy(amountInserted, newBasePowerPlant.getCore());
 //                            core.setInputMaterial(ionParticle);
-                            if (powerPlant.harvestEnergy(amountInserted, core3) == null) {
+                            if (result == null) {
                                 System.out.println("You are not allowed to use Ion Particle");
                             } else {
-                                EnergyPackage energyPackage=powerPlant.harvestEnergy(amountInserted, core3);
-                                powerPlant.setTotalUnits(energyPackage);
+                                powerPlant.setTotalUnits(result);
                                 System.out.println("Added IonParticle");
                             }
                         } else if (inpAddMaterial == 2) {
                             int amountInserted = sc.nextInt();
+                            newBasePowerPlant.setCore(core2);
+                            EnergyPackage result = newBasePowerPlant.harvestEnergy(amountInserted, newBasePowerPlant.getCore());
 //                            core.setInputMaterial(protonParticle);
-                            if (powerPlant.harvestEnergy(amountInserted, core2) == null) {
+                            if (result == null) {
                                 System.out.println("You are not allowed to use Proton Particle");
                             } else {
-                                EnergyPackage energyPackage=powerPlant.harvestEnergy(amountInserted, core2);
-                                powerPlant.setTotalUnits(energyPackage);
+                                newBasePowerPlant.setTotalUnits(result);
                                 System.out.println("Added Proton");
                             }
                         } else if (inpAddMaterial == 3) {
                             int amountInserted = sc.nextInt();
+                            newBasePowerPlant.setCore(core1);
 //                            core.setInputMaterial(neutronParticle);
-                            EnergyPackage energyPackage=powerPlant.harvestEnergy(amountInserted, core1);
-                            powerPlant.setTotalUnits(energyPackage);
-                            System.out.println("Added Neutron");
+                            EnergyPackage result = newBasePowerPlant.harvestEnergy(amountInserted, newBasePowerPlant.getCore());
+                            if(result != null){
+                                newBasePowerPlant.setTotalUnits(result);
+                                System.out.println("Added Neutron");
+                            }
                         } else if (inpAddMaterial == 4) {
                             break;
                         } else {
@@ -143,13 +179,13 @@ public class Main {
                                 newBasePowerPlant = new CoreUpgrade1(newBasePowerPlant);
                                 count++;
                             } else if (count == 1) {
-                                newBasePowerPlant = new EarlyWarningSystem(new CoreUpgrade1(newBasePowerPlant), alarmSystem);
+                                newBasePowerPlant = new EarlyWarningSystem(newBasePowerPlant, alarmSystem);
                                 count++;
                             } else if (count == 2) {
-                                newBasePowerPlant = new CoreUpgrade2(new EarlyWarningSystem(new CoreUpgrade1(newBasePowerPlant), alarmSystem));
+                                newBasePowerPlant = new CoreUpgrade2(newBasePowerPlant);
                                 count++;
                             } else if (count == 3) {
-                                newBasePowerPlant = new FacilitySafetyUpgrade(new CoreUpgrade2(new EarlyWarningSystem(new CoreUpgrade1(newBasePowerPlant), alarmSystem)));
+                                newBasePowerPlant = new FacilitySafetyUpgrade(newBasePowerPlant);
                                 count++;
                             } else {
                                 System.out.println("No upgrades available");
@@ -162,6 +198,34 @@ public class Main {
                         System.out.print("Choose an action: \n a) Add Material \n b) Upgrade PowerPlant  \n");
                         break;
                     }
+//                    System.out.print("Do you want to upgrade facility?" +
+//                            " \n y)yes  \n n)no \n");
+//                    while (sc.hasNext()) {
+//                        String inputUpgrade = sc.next().toLowerCase();
+//                        if (inputUpgrade.equals("y")) {
+//                            if (count == 0) {
+//                                newBasePowerPlant = new CoreUpgrade1(newBasePowerPlant);
+//                                count++;
+//                            } else if (count == 1) {
+//                                newBasePowerPlant = new EarlyWarningSystem(new CoreUpgrade1(newBasePowerPlant), alarmSystem);
+//                                count++;
+//                            } else if (count == 2) {
+//                                newBasePowerPlant = new CoreUpgrade2(new EarlyWarningSystem(new CoreUpgrade1(newBasePowerPlant), alarmSystem));
+//                                count++;
+//                            } else if (count == 3) {
+//                                newBasePowerPlant = new FacilitySafetyUpgrade(new CoreUpgrade2(new EarlyWarningSystem(new CoreUpgrade1(newBasePowerPlant), alarmSystem)));
+//                                count++;
+//                            } else {
+//                                System.out.println("No upgrades available");
+//                            }
+//                        } else if (inputUpgrade.equals("n")) {
+//                            break;
+//                        } else {
+//                            throw new InputMismatchException();
+//                        }
+//                        System.out.print("Choose an action: \n a) Add Material \n b) Upgrade PowerPlant  \n");
+//                        break;
+//                    }
                 } else {
                     throw new InputMismatchException();
                 }

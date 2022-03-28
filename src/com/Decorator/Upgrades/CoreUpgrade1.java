@@ -1,5 +1,7 @@
 package com.Decorator.Upgrades;
 
+import com.Alarm.AlarmSystem;
+import com.Alarm.state.State;
 import com.Core;
 import com.Decorator.EnergyFactory;
 import com.Decorator.FactoryDecorator;
@@ -17,7 +19,7 @@ public class CoreUpgrade1 extends FactoryDecorator {
     @Override
     public EnergyPackage harvestEnergy(int amount, Core core) {
         Material inputMaterial = core.getInputMaterial();
-        if(inputMaterial instanceof NeutronParticle || inputMaterial instanceof com.Materials.ProtonParticle){
+        if(core.getInputMaterial() instanceof NeutronParticle || inputMaterial instanceof com.Materials.ProtonParticle){
             if(amount <= core.getMaximumCapacity()){
                 double heatUnits = (double) Math.round((amount * inputMaterial.getHeatPerUnit()*100)/100);
                 double steamUnits = (double) Math.round((amount * inputMaterial.getSteamPerUnit()*100)/100);
@@ -85,11 +87,41 @@ public class CoreUpgrade1 extends FactoryDecorator {
 
     }
 
+    @Override
+    public void setTotalUnits(EnergyPackage energyPackage)
+    {
+        energyFactory.setTotalUnits(energyPackage);
+    }
+
+    @Override
+    public void setCore(Core core)
+    {
+        energyFactory.setCore(core);
+    }
+
+    @Override
+    public Core getCore()
+    {
+        return energyFactory.getCore();
+    }
+
+    @Override
+    public AlarmSystem getAlarmSystem()
+    {
+        return null;
+    }
+
     public EnergyFactory getEnergyFactory() {
         return energyFactory;
     }
 
     public void setEnergyFactory(EnergyFactory energyFactory) {
         this.energyFactory = energyFactory;
+    }
+
+    @Override
+    public void update(String eventType, State state)
+    {
+
     }
 }

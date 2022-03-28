@@ -1,6 +1,7 @@
 package com.Decorator.Upgrades;
 
 import com.Alarm.AlarmSystem;
+import com.Alarm.state.State;
 import com.Core;
 import com.Alarm.state.SystemState;
 import com.Alarm.state.Warning;
@@ -28,9 +29,33 @@ public class EarlyWarningSystem extends FactoryDecorator {
     }
 
     @Override
+    public void setTotalUnits(EnergyPackage energyPackage)
+    {
+        energyFactory.setTotalUnits(energyPackage);
+    }
+
+    @Override
+    public void setCore(Core core)
+    {
+        energyFactory.setCore(core);
+    }
+
+    @Override
+    public Core getCore()
+    {
+        return energyFactory.getCore();
+    }
+
+    @Override
+    public AlarmSystem getAlarmSystem()
+    {
+        return energyFactory.getAlarmSystem();
+    }
+
+    @Override
     public EnergyPackage harvestEnergy(int amount, Core core)
     {
-        return null;
+        return energyFactory.harvestEnergy(amount, core);
     }
 
     @Override
@@ -41,42 +66,48 @@ public class EarlyWarningSystem extends FactoryDecorator {
     @Override
     public void storeEnergy()
     {
-
+        energyFactory.storeEnergy();
     }
 
     @Override
     public void sllStoredEnergy()
     {
-
+        energyFactory.sllStoredEnergy();
     }
 
     @Override
     public void checkState()
     {
-
+        energyFactory.checkState();
     }
 
     @Override
     public void checkTemperature()
     {
-
+        energyFactory.checkTemperature();
     }
 
     @Override
     public void releasePressure()
     {
-
+        energyFactory.releasePressure();
     }
 
     @Override
     public void increaseProduction()
     {
-
+        energyFactory.increaseProduction();
     }
 
     @Override
     public boolean explodePowerPlant()
     {
         return false;
+    }
+
+    @Override
+    public void update(String eventType, State state)
+    {
+        energyFactory.update(eventType, state);
     }
 }
