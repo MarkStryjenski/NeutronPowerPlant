@@ -35,48 +35,6 @@ public class CoreUpgrade2 extends FactoryDecorator {
     }
 
     @Override
-    public void storeEnergy()
-    {
-        energyFactory.storeEnergy();
-    }
-
-    @Override
-    public void sllStoredEnergy()
-    {
-        energyFactory.sllStoredEnergy();
-    }
-
-    @Override
-    public void checkState()
-    {
-        energyFactory.checkState();
-    }
-
-    @Override
-    public void checkTemperature()
-    {
-        energyFactory.checkTemperature();
-    }
-
-    @Override
-    public void releasePressure()
-    {
-        energyFactory.releasePressure();
-    }
-
-    @Override
-    public void increaseProduction()
-    {
-        energyFactory.increaseProduction();
-    }
-
-    @Override
-    public boolean explodePowerPlant()
-    {
-        return false;
-    }
-
-    @Override
     public void toWarning() {
 
     }

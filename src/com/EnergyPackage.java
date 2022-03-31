@@ -1,6 +1,6 @@
 package com;
 
-public class EnergyPackage {
+public class  EnergyPackage {
     private double energyUnits;
     private double heatUnits;
     private double steamUnits;

@@ -11,7 +11,6 @@ import com.Materials.NeutronParticle;
 
 public class CoreUpgrade1 extends FactoryDecorator {
 
-//    private EnergyFactory energyFactory;
     public CoreUpgrade1(EnergyFactory energyFactory) {
         super(energyFactory);
     }
@@ -41,48 +40,6 @@ public class CoreUpgrade1 extends FactoryDecorator {
     }
 
     @Override
-    public void storeEnergy()
-    {
-        energyFactory.storeEnergy();
-    }
-
-    @Override
-    public void sllStoredEnergy()
-    {
-        energyFactory.sllStoredEnergy();
-    }
-
-    @Override
-    public void checkState()
-    {
-        energyFactory.checkState();
-    }
-
-    @Override
-    public void checkTemperature()
-    {
-        energyFactory.checkTemperature();
-    }
-
-    @Override
-    public void releasePressure()
-    {
-        energyFactory.releasePressure();
-    }
-
-    @Override
-    public void increaseProduction()
-    {
-        energyFactory.increaseProduction();
-    }
-
-    @Override
-    public boolean explodePowerPlant()
-    {
-        return false;
-    }
-
-    @Override
     public void toWarning() {
 
     }
@@ -109,14 +66,6 @@ public class CoreUpgrade1 extends FactoryDecorator {
     public AlarmSystem getAlarmSystem()
     {
         return null;
-    }
-
-    public EnergyFactory getEnergyFactory() {
-        return energyFactory;
-    }
-
-    public void setEnergyFactory(EnergyFactory energyFactory) {
-        this.energyFactory = energyFactory;
     }
 
     @Override
