@@ -1,15 +1,13 @@
 package com;
 
-import com.Alarm.AlarmListener;
-
 import com.Alarm.AlarmSystem;
 import com.Alarm.state.*;
 import com.Decorator.EnergyFactory;
+import com.Materials.NeutronParticle;
+import java.util.ArrayList;
 
-public class PowerPlant implements EnergyFactory, AlarmListener {
-    private Core buildInCore;
+public class PowerPlant implements EnergyFactory {
     private final Double maxAllowedHeat;
-    private SystemState systemState;
     private Meltdown meltdown;
     private Double totalEnergyUnits;
     private Double totalHeatUnits;
@@ -17,28 +15,28 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
     private EnergyFactory energyFactory;
     private AlarmSystem alarmSystem;
     private int warningCount;
-    private int coreLvl;
+    private int plantLevel;
+    private ArrayList<Core> builtInCores;
+    private State powerPlantState;
 
-    public PowerPlant(Core core, Double maxAllowedHeat,EnergyFactory energyFactory, AlarmSystem alarmSystem) {
-        this.buildInCore = core;
+    public PowerPlant(Double maxAllowedHeat,EnergyFactory energyFactory) {
         this.maxAllowedHeat = maxAllowedHeat;
         this.energyFactory = energyFactory;
-        this.alarmSystem = alarmSystem;
+        this.alarmSystem = new AlarmSystem("meltdown", "warning", "workingProperly");
         this.totalEnergyUnits = 0.0;
         this.totalHeatUnits = 0.0;
         this.totalSteamUnits = 0.0;
-        this.systemState = new SystemState();
-        this.meltdown = new Meltdown(systemState);
-        this.warningCount=0;
-        this.coreLvl=0;
+        this.warningCount = 0;
+        this.plantLevel = 0;
+        this.builtInCores = new ArrayList<>();
+        this.powerPlantState = new WorkingProperly(this);
     }
 
-
-    public void toMeltdown() {
-        this.systemState.changeState(this.meltdown);
-        alarmSystem.notify("meltdown", this.meltdown);
+    @Override
+    public void stateHasChanged(String eventType, State state)
+    {
+        this.alarmSystem.notify(eventType, state);
     }
-
 
     public Double getTotalEnergyUnits() {
         return totalEnergyUnits;
@@ -48,7 +46,8 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
         this.totalEnergyUnits = totalEnergyUnits;
     }
 
-    public Double getTotalHeatUnits() {
+    @Override
+    public double getTotalHeatUnits() {
         return totalHeatUnits;
     }
 
@@ -56,7 +55,8 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
         this.totalHeatUnits = totalHeatUnits;
     }
 
-    public Double getTotalSteamUnits() {
+    @Override
+    public double getTotalSteamUnits() {
         return totalSteamUnits;
     }
 
@@ -64,30 +64,27 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
         this.totalSteamUnits = totalSteamUnits;
     }
 
-    public int getCoreLvl() {
-        return coreLvl;
-    }
-
-    public void setCoreLvl(int coreLvl) {
-        this.coreLvl = coreLvl;
-    }
-
-    public Core getBuildInCore()
+    public ArrayList<Core> getBuildInCores()
     {
-        return buildInCore;
+        return this.builtInCores;
     }
 
-
+    //when harvest energy new is called, it runs through all cores and executes harvest energy for the amount on each
     @Override
-    public EnergyPackage harvestEnergy(int amount, Core core)
+    public void harvestEnergyNew(int amount)
     {
-        return buildInCore.harvestEnergy(amount, core);
-    }
-
-
-    @Override
-    public void toWarning() {
-
+        if(this.getCores().get(0).getInputMaterial() instanceof NeutronParticle)
+        {
+            int counter = 1;
+            for (Core builtInCore : this.getCores())
+            {
+                System.out.println("Core number " + counter + " produced: ");
+                this.getPowerPlantState().energyHarvest(amount,  this, builtInCore);
+                counter++;
+            }
+        } else {
+            System.out.println("The input material is not compatible with the core upgrade");
+        }
     }
 
     @Override
@@ -96,40 +93,72 @@ public class PowerPlant implements EnergyFactory, AlarmListener {
         this.setTotalEnergyUnits(this.getTotalEnergyUnits() + energyPackage.getEnergyUnits());
         this.setTotalHeatUnits(this.getTotalEnergyUnits() + energyPackage.getHeatUnits());
         this.setTotalSteamUnits(this.getTotalSteamUnits() + energyPackage.getSteamUnits());
-
-        if(this.getTotalHeatUnits() > 2000.0 || this.getTotalSteamUnits() > 1500.0) {
-            this.toMeltdown();
-        }
     }
 
     @Override
     public void setCore(Core core)
     {
-        this.buildInCore = core;
+        this.builtInCores.clear();
+        for(int i = 0; i <= this.plantLevel; i++)
+        {
+            this.builtInCores.add(new Core(core.getInputMaterial()));
+        }
     }
 
     @Override
-    public Core getCore()
+    public ArrayList<Core> getCores()
     {
-        return this.getBuildInCore();
+        return this.getBuildInCores();
     }
 
     @Override
     public AlarmSystem getAlarmSystem()
     {
-        return this.alarmSystem;
+        return null;
     }
 
     @Override
-    public void update(String eventType, State state) {
-        System.out.println("Alarm triggered! " + "Event type: " + eventType + ", State: " + state);
-        if(eventType.equals("meltdown")){
-            System.exit(0);
-        }
-        if(warningCount==2){
-            System.out.println("Too many warnings, Reactor meltdown!!!");
-            System.exit(0);
-        }
-        warningCount++;
+    public int getPlantLevel() {
+        return this.plantLevel;
+    }
+
+    @Override
+    public void setPlantLevel(int newLevel) {
+        this.plantLevel = newLevel;
+    }
+
+    @Override
+    public int getWarningCount() {
+        return warningCount;
+    }
+
+    @Override
+    public void increaseWarningCount() {
+        this.warningCount++;
+    }
+
+    public void setWarningCount(int warningCount) {
+        this.warningCount = warningCount;
+    }
+
+    //state getter and setter
+    @Override
+    public State getPowerPlantState() {
+        return powerPlantState;
+    }
+
+    @Override
+    public void setPowerPlantState(State powerPlantState) {
+        this.powerPlantState = powerPlantState;
+    }
+
+    public void addCoreToCores(Core core)
+    {
+        this.builtInCores.add(core);
+    }
+
+    public void removeCoreByObject(Core core)
+    {
+        this.builtInCores.remove(core);
     }
 }

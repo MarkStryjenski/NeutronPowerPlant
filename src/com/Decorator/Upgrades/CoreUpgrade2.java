@@ -6,7 +6,7 @@ import com.Core;
 import com.Decorator.EnergyFactory;
 import com.Decorator.FactoryDecorator;
 import com.EnergyPackage;
-import com.Materials.Material;
+import java.util.ArrayList;
 
 public class CoreUpgrade2 extends FactoryDecorator {
     public CoreUpgrade2(EnergyFactory energyFactory) {
@@ -14,28 +14,18 @@ public class CoreUpgrade2 extends FactoryDecorator {
     }
 
     @Override
-    public EnergyPackage harvestEnergy(int amount, Core core) {
-        Material inputMaterial = core.getInputMaterial();
-        if(amount <= core.getMaximumCapacity()){
-            double heatUnits = (double) Math.round((amount * inputMaterial.getHeatPerUnit()*100)/100);
-            double steamUnits = (double) Math.round((amount * inputMaterial.getSteamPerUnit()*100)/100);
-            double energyUnits = (double) Math.round((amount * inputMaterial.getEnergyPerUnit())*100)/100;
-            System.out.println("Created heatUnits: "+heatUnits+" steamUnits: "+steamUnits+" energyUnits: "+energyUnits);
-
-            return new EnergyPackage(energyUnits, heatUnits, steamUnits);
-        }else{
-            System.out.println("You have put more than max capacity allows");
+    public void harvestEnergyNew(int amount) {
+        int counter = 1;
+        for (Core builtInCore : this.getCores())
+        {
+            System.out.println("Core number " + counter + " produced: ");
+            this.getPowerPlantState().energyHarvest(amount,  this, builtInCore);
+            counter++;
         }
-        return null;
     }
 
     @Override
     public void activateAlert() {
-
-    }
-
-    @Override
-    public void toWarning() {
 
     }
 
@@ -52,9 +42,9 @@ public class CoreUpgrade2 extends FactoryDecorator {
     }
 
     @Override
-    public Core getCore()
+    public ArrayList<Core> getCores()
     {
-        return energyFactory.getCore();
+        return energyFactory.getCores();
     }
 
     @Override
@@ -64,8 +54,47 @@ public class CoreUpgrade2 extends FactoryDecorator {
     }
 
     @Override
-    public void update(String eventType, State state)
-    {
+    public int getPlantLevel() {
+        return this.energyFactory.getPlantLevel();
+    }
 
+    @Override
+    public void setPlantLevel(int newLevel) {
+        this.energyFactory.setPlantLevel(newLevel);
+    }
+
+    @Override
+    public State getPowerPlantState() {
+        return this.energyFactory.getPowerPlantState();
+    }
+
+    @Override
+    public void stateHasChanged(String eventType, State state) {
+        this.energyFactory.stateHasChanged(eventType, state);
+    }
+
+    @Override
+    public void setPowerPlantState(State newState) {
+        this.energyFactory.setPowerPlantState(newState);
+    }
+
+    @Override
+    public double getTotalHeatUnits() {
+        return energyFactory.getTotalHeatUnits();
+    }
+
+    @Override
+    public double getTotalSteamUnits() {
+        return energyFactory.getTotalSteamUnits();
+    }
+
+    @Override
+    public int getWarningCount() {
+        return energyFactory.getWarningCount();
+    }
+
+    @Override
+    public void increaseWarningCount() {
+        energyFactory.increaseWarningCount();
     }
 }
