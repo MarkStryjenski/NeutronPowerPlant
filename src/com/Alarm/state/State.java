@@ -14,14 +14,6 @@ public abstract class State {
 
     public abstract void onChangeState();
 
-    //public PowerPlant getSystemState() {
-    //    return powerPlant;
-    //}
-
-    public void setSystemState(PowerPlant powerPlant) {
-        this.powerPlant = powerPlant;
-    }
-
     public void energyHarvest(int amount, EnergyFactory plant, Core core){}
 
     public void notifyStateChange(String eventType, State state)
@@ -32,5 +24,13 @@ public abstract class State {
             return;
         }
         System.out.println("No alarm system built in. No notifications sent out.");
+    }
+
+    public EnergyFactory getPowerPlant() {
+        return powerPlant;
+    }
+
+    public void setPowerPlant(EnergyFactory powerPlant) {
+        this.powerPlant = powerPlant;
     }
 }

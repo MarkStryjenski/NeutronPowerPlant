@@ -7,7 +7,7 @@ import com.Materials.NeutronParticle;
 import java.util.ArrayList;
 
 public class PowerPlant implements EnergyFactory {
-    private final Double maxAllowedHeat;
+    private Double maxAllowedHeat;
     private Meltdown meltdown;
     private Double totalEnergyUnits;
     private Double totalHeatUnits;

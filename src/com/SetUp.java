@@ -13,7 +13,7 @@ import com.Materials.ProtonParticle;
 
 import java.util.ArrayList;
 
-public class setup {
+public class SetUp {
     public static EnergyFactory energyFactory = new EnergyFactory() {
 
         @Override
@@ -110,18 +110,18 @@ public class setup {
     }
 
     public static void subscribe() {
-        setup.alarmSystem.subscribe("meltdown", setup.ionCore);
-        setup.alarmSystem.subscribe("warning", setup.ionCore);
-        setup.alarmSystem.subscribe("workingProperly", setup.ionCore);
+        SetUp.alarmSystem.subscribe("meltdown", SetUp.ionCore);
+        SetUp.alarmSystem.subscribe("warning", SetUp.ionCore);
+        SetUp.alarmSystem.subscribe("workingProperly", SetUp.ionCore);
 
 
-        setup.alarmSystem.subscribe("meltdown", setup.neutronCore);
-        setup.alarmSystem.subscribe("warning", setup.neutronCore);
-        setup.alarmSystem.subscribe("workingProperly", setup.neutronCore);
+        SetUp.alarmSystem.subscribe("meltdown", SetUp.neutronCore);
+        SetUp.alarmSystem.subscribe("warning", SetUp.neutronCore);
+        SetUp.alarmSystem.subscribe("workingProperly", SetUp.neutronCore);
 
-        setup.alarmSystem.subscribe("meltdown", setup.protonCore);
-        setup.alarmSystem.subscribe("warning", setup.protonCore);
-        setup.alarmSystem.subscribe("workingProperly", setup.protonCore);
+        SetUp.alarmSystem.subscribe("meltdown", SetUp.protonCore);
+        SetUp.alarmSystem.subscribe("warning", SetUp.protonCore);
+        SetUp.alarmSystem.subscribe("workingProperly", SetUp.protonCore);
     }
 
     public static void applyCoreUpgrade2()
