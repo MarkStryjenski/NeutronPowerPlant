@@ -27,23 +27,6 @@ public class Core implements AlarmListener {
         }
     }
 
-    public EnergyPackage harvestEnergyNew(int amount, State currentState){
-        if(this.inputMaterial instanceof NeutronParticle){
-            if(amount <= maximumCapacity){
-                //currentState.energyHarvest(amount,this);
-                double heatUnits = (double) Math.round((amount * inputMaterial.getHeatPerUnit()*100)/100);
-                double steamUnits = (double) Math.round((amount * inputMaterial.getSteamPerUnit()*100)/100);
-                double energyUnits = (double) Math.round((amount * inputMaterial.getEnergyPerUnit())*100)/100;
-                System.out.println("Created heatUnits: "+heatUnits+" steamUnits: "+steamUnits+" energyUnits: "+energyUnits);
-                return new EnergyPackage(energyUnits, heatUnits, steamUnits);
-            }else{
-                System.out.println("You have put more than max capacity allows");
-            }
-            return null;
-        }
-        return null;
-    }
-
     public Material getInputMaterial()
     {
         return inputMaterial;

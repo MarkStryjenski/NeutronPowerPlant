@@ -8,7 +8,7 @@ import com.setup;
 
 public class Main {
 
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
     private static boolean continueRunning = true;
 
     public static void main(String[] args) {
@@ -28,7 +28,7 @@ public class Main {
         {
             System.out.print("Choose an action: \n a) Add Material \n b) Upgrade PowerPlant  \n e) Exit app \n");
 
-            String chosenOption = sc.nextLine();
+            String chosenOption = sc.next();
 
             evaluateInput(chosenOption);
         }
@@ -56,7 +56,7 @@ public class Main {
     private static void harvestEnergy()
     {
         System.out.println("Choose the input material: \n a) Neutron particle \n b) Proton particle \n c) Ion particle");
-        String chosenMaterial = sc.nextLine();
+        String chosenMaterial = sc.next();
         Core selectedMaterial = getCoreFromInput(chosenMaterial);
         setup.basePowerPlant.setCore(selectedMaterial);
         System.out.println("Input amount: ");
