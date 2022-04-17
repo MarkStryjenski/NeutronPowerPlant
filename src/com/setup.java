@@ -109,6 +109,21 @@ public class setup {
         basePowerPlant = new CoreUpgrade1(basePowerPlant);
     }
 
+    public static void subscribe() {
+        setup.alarmSystem.subscribe("meltdown", setup.ionCore);
+        setup.alarmSystem.subscribe("warning", setup.ionCore);
+        setup.alarmSystem.subscribe("workingProperly", setup.ionCore);
+
+
+        setup.alarmSystem.subscribe("meltdown", setup.neutronCore);
+        setup.alarmSystem.subscribe("warning", setup.neutronCore);
+        setup.alarmSystem.subscribe("workingProperly", setup.neutronCore);
+
+        setup.alarmSystem.subscribe("meltdown", setup.protonCore);
+        setup.alarmSystem.subscribe("warning", setup.protonCore);
+        setup.alarmSystem.subscribe("workingProperly", setup.protonCore);
+    }
+
     public static void applyCoreUpgrade2()
     {
         basePowerPlant = new CoreUpgrade2(basePowerPlant);

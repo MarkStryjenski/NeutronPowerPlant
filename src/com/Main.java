@@ -14,6 +14,7 @@ public class Main {
     public static void main(String[] args) {
         // creates an object of Scanner
 
+        setup.subscribe();
 
         System.out.println("----------------------------POWER PLANT----------------------------");
         System.out.print("Welcome to the Chernobyl power plant!!!!! \n ");
@@ -36,20 +37,16 @@ public class Main {
 
     private static void evaluateInput(String input)
     {
-        switch (input) {
-            case "a":
-                harvestEnergy();
-                break;
-            case "b":
-                System.out.println("Upgrade in progress...");
-                upgradePlant();
-                break;
-            case "e":
-                System.exit(0);
-                break;
-            default:
-                System.out.println("Invalid input");
-                break;
+        if(!input.equals("")) {
+            switch (input) {
+                case "a" -> harvestEnergy();
+                case "b" -> {
+                    System.out.println("Upgrade in progress...");
+                    upgradePlant();
+                }
+                case "e" -> System.exit(0);
+                default -> System.out.println("Invalid input");
+            }
         }
     }
 
